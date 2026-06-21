@@ -1,0 +1,56 @@
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&f[]=cabinet-grotesk@800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Satoshi", sans-serif;
+  --font-display: "Cabinet Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-bg-deep: #050608;
+  --color-bg-base: #0b0d11;
+  --color-bg-raised: #13161b;
+  --color-text-primary: #e5e8ec;
+  --color-text-secondary: #b4b7bd;
+  --color-text-muted: #9c9ea2;
+  --color-accent: #70a1ff;
+  --color-accent-hover: #7bb2ff;
+  --color-border: #1d1f23;
+
+  /* Status Colors */
+  --color-status-idle: #636363;
+  --color-status-active: #3aa85b;
+  --color-status-error: #d74745;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-deep);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-deep);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-bg-raised);
+  }
+}
+
+/* Glassmorphism utility */
+.glass-effect {
+  background: rgba(11, 13, 17, 0.75);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
