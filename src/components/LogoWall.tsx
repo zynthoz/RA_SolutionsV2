@@ -1,11 +1,13 @@
+import { SiOpenai, SiStripe, SiGooglemaps, SiWhatsapp, SiVercel, SiTypescript } from "@icons-pack/react-simple-icons";
+
 export function LogoWall() {
   const logos = [
-    { name: "OpenAI", slug: "openai" },
-    { name: "Stripe", slug: "stripe" },
-    { name: "Google Maps", slug: "googlemaps" },
-    { name: "WhatsApp", slug: "whatsapp" },
-    { name: "Vercel", slug: "vercel" },
-    { name: "TypeScript", slug: "typescript" },
+    { name: "OpenAI", Icon: SiOpenai },
+    { name: "Stripe", Icon: SiStripe },
+    { name: "Google Maps", Icon: SiGooglemaps },
+    { name: "WhatsApp", Icon: SiWhatsapp },
+    { name: "Vercel", Icon: SiVercel },
+    { name: "TypeScript", Icon: SiTypescript },
   ];
 
   return (
@@ -14,16 +16,15 @@ export function LogoWall() {
         <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#9c9ea2]">
           Engineered With Modern Industry Standards
         </span>
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-65">
+        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-65 text-white">
           {logos.map((logo) => (
-            <img
-              key={logo.slug}
-              src={`https://cdn.simpleicons.org/${logo.slug}/ffffff`}
-              alt={logo.name}
+            <div
+              key={logo.name}
               title={logo.name}
-              className="h-5 w-auto object-contain hover:opacity-100 transition-opacity duration-200"
-              loading="lazy"
-            />
+              className="h-6 w-auto flex items-center justify-center hover:opacity-100 transition-opacity duration-200"
+            >
+              <logo.Icon className="h-full w-auto" />
+            </div>
           ))}
         </div>
       </div>
