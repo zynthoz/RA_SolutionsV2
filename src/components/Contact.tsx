@@ -11,14 +11,32 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API Submission
-    setTimeout(() => {
+
+    try {
+      // Replace 'YOUR_FORMSPREE_ENDPOINT' with your actual Formspree form ID URL
+      // Example: https://formspree.io/f/xabcdefg
+      const response = await fetch("https://formspree.io/f/mjgqkgpo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        console.error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -31,7 +49,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-24 border-t border-white/5 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
-        
+
         {/* Left column (col-span-5) */}
         <div className="lg:col-span-5 text-left flex flex-col justify-between">
           <div>
@@ -46,8 +64,14 @@ export function Contact() {
           <div className="mt-8 border-t border-white/5 pt-8 flex flex-col gap-4 text-xs font-mono text-[#9c9ea2]">
             <div>
               <span className="block text-white uppercase tracking-wider text-[10px] mb-1 font-bold">Email Address</span>
-              <a href="mailto:engineering@rasolutions.io" className="hover:text-[#70a1ff] transition-colors">
-                engineering@rasolutions.io
+              <a href="mailto:rasolutions.team@gmail.com" className="hover:text-[#70a1ff] transition-colors">
+                rasolutions.team@gmail.com
+              </a>
+            </div>
+            <div>
+              <span className="block text-white uppercase tracking-wider text-[10px] mb-1 font-bold">Phone</span>
+              <a href="tel:+6396689564561" className="hover:text-[#70a1ff] transition-colors">
+                +6396689564561
               </a>
             </div>
             <div>
