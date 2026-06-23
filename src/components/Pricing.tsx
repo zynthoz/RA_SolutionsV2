@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Check, Sparkle } from "@phosphor-icons/react";
+import { motion } from "motion/react";
 
 type PricingCategory = "web" | "seo" | "ai";
 
@@ -16,7 +17,7 @@ interface Plan {
 const WEB_PLANS: Plan[] = [
   {
     name: "Essential Brand",
-    price: "₱19,500",
+    price: "₱15,500",
     period: "one-time",
     desc: "Perfect for startups and local shops looking for a clean, professional online footprint.",
     features: [
@@ -29,7 +30,7 @@ const WEB_PLANS: Plan[] = [
   },
   {
     name: "Growth Operations",
-    price: "₱39,500",
+    price: "₱25,500",
     period: "one-time",
     desc: "Designed for service businesses needing booking flows and advanced content strategies.",
     popular: true,
@@ -44,8 +45,8 @@ const WEB_PLANS: Plan[] = [
   },
   {
     name: "Custom System",
-    price: "Custom",
-    period: "from ₱75k",
+    price: "₱29,000",
+    period: "one-time",
     desc: "For enterprises requiring bespoke database architecture, custom portals, or POS APIs.",
     features: [
       "Multi-page custom database app",
@@ -166,18 +167,34 @@ export function Pricing() {
     }
   };
 
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.15 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  };
+
   return (
     <section id="pricing" className="py-24 border-t border-white/5 bg-[#0b0d11]/20 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header - Staggered vertically */}
-        <div className="max-w-2xl text-left mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl text-left mb-12"
+        >
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tighter text-white">
             Transparent Pricing Models
           </h2>
           <p className="text-base text-[#b4b7bd] mt-3 leading-relaxed">
             Select the service suite optimized for your operational scale. No hidden fees, clear boundaries.
           </p>
-        </div>
+        </motion.div>
 
         {/* Categories Tab Selector */}
         <div className="flex justify-start border-b border-white/5 pb-4 mb-12 gap-6 overflow-x-auto">
@@ -201,9 +218,16 @@ export function Pricing() {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <motion.div 
+          key={activeCategory}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"
+        >
           {getPlans().map((plan) => (
-            <div
+            <motion.div
+              variants={itemVariants}
               key={plan.name}
               className={`rounded-2xl border p-8 flex flex-col justify-between transition-all duration-300 relative ${
                 plan.popular
@@ -258,9 +282,9 @@ export function Pricing() {
               >
                 Select {plan.name}
               </button>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

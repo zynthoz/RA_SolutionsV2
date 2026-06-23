@@ -1,4 +1,5 @@
 import { Cpu, ArrowRight } from "@phosphor-icons/react";
+import { motion } from "motion/react";
 import { DeviceFrames } from "./DeviceFrames";
 
 interface MiniBranch {
@@ -25,7 +26,13 @@ export function Products() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 text-left">
         
         {/* Header Block */}
-        <div className="max-w-2xl mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mb-16"
+        >
           <span className="font-mono text-[10px] text-[#70a1ff] uppercase tracking-wider block mb-2 font-bold">
             Flagship Software Products
           </span>
@@ -35,10 +42,16 @@ export function Products() {
           <p className="text-base text-[#b4b7bd] mt-3 leading-relaxed">
             In addition to custom consulting, we build and deploy production-ready software solutions tailored for business operations.
           </p>
-        </div>
+        </motion.div>
 
         {/* Featured Product Card - LaundryLink */}
-        <div className="rounded-2xl border border-white/5 bg-[#13161b] p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-10 hover:border-[#70a1ff]/30 transition-all duration-300 relative overflow-hidden group">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="rounded-2xl border border-white/5 bg-[#13161b] p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-10 hover:border-[#70a1ff]/30 transition-all duration-300 relative overflow-hidden group"
+        >
           {/* Subtle gradient light flare */}
           <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-[#70a1ff]/5 blur-[80px] pointer-events-none" />
 
@@ -72,9 +85,30 @@ export function Products() {
               </div>
             </div>
 
+            {/* Live Branch Status Panel (Social Proof) */}
+            <div className="border-t border-white/5 pt-6">
+              <span className="text-[9px] font-mono text-[#70a1ff] uppercase tracking-wider block mb-3 font-bold">
+                Live Node Status (Operational Proof)
+              </span>
+              <div className="flex flex-col gap-2">
+                {MINI_BRANCHES.map((b, idx) => (
+                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-[#0b0d11]/80 border border-white/5 rounded-lg px-4 py-2.5 font-mono text-[11px]">
+                    <span className="text-white font-medium truncate max-w-[220px]">
+                      {b.location}
+                    </span>
+                    <div className="flex items-center gap-4 text-[10px] text-[#9c9ea2]">
+                      <span>Node: <strong className="text-white">{b.machines}</strong></span>
+                      <span>Daily: <strong className="text-white">{b.revenue}</strong></span>
+                      <span>Uptime: <strong className="text-[#3aa85b]">{b.uptime}</strong></span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <button
               onClick={handleViewProduct}
-              className="px-5 py-3 rounded-lg bg-white text-[#050608] hover:bg-[#e5e8ec] active:scale-95 text-xs font-bold transition-all flex items-center gap-2 self-start mt-4 shadow-[0_4px_16px_rgba(255,255,255,0.1)] cursor-pointer"
+              className="px-5 py-3 rounded-lg bg-white text-[#050608] hover:bg-[#e5e8ec] active:scale-95 text-xs font-bold transition-all flex items-center gap-2 self-start mt-2 shadow-[0_4px_16px_rgba(255,255,255,0.1)] cursor-pointer"
             >
               <span>View Product Details</span>
               <ArrowRight size={14} weight="bold" />
@@ -84,7 +118,7 @@ export function Products() {
           {/* Right Preview Graphic: Overlapping Device Frames */}
           <DeviceFrames />
 
-        </div>
+        </motion.div>
 
       </div>
     </section>

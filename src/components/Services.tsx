@@ -1,4 +1,5 @@
 import { Globe, MapPinArea, ChatCircleText, ArrowUpRight } from "@phosphor-icons/react";
+import { motion } from "motion/react";
 
 export function Services() {
   const scrollToSection = (id: string) => {
@@ -8,27 +9,51 @@ export function Services() {
     }
   };
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  };
+
   return (
     <section id="services" className="py-24 max-w-7xl mx-auto px-6 md:px-12 text-left relative">
       {/* Background Glow */}
       <div className="absolute bottom-1/4 right-0 w-[300px] h-[300px] rounded-full bg-[#70a1ff]/5 blur-[120px] pointer-events-none" />
 
       {/* Header (Vertically Stacked - no split header, no eyebrow) */}
-      <div className="max-w-2xl mb-16">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-2xl mb-16"
+      >
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tighter text-white">
           Engineered to Drive Growth
         </h2>
         <p className="text-base text-[#b4b7bd] mt-3 leading-relaxed">
           High-performance digital products built from the ground up to automate operations, rank organically, and convert leads.
         </p>
-      </div>
+      </motion.div>
 
       {/* Bento Grid (3 services, 3 cells) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+      >
         {/* Cell 1: Web Development (Col-span 2) */}
-        <div className="md:col-span-2 rounded-2xl border border-white/5 bg-[#0b0d11] p-8 flex flex-col justify-between relative overflow-hidden group hover:border-[#70a1ff]/30 transition-colors duration-300 min-h-[320px]">
+        <motion.div variants={itemVariants} className="md:col-span-2 rounded-2xl border border-white/5 bg-[#0b0d11] p-8 flex flex-col justify-between relative overflow-hidden group hover:border-[#70a1ff]/30 transition-colors duration-300 min-h-[320px]">
           {/* Visual element: Layered glassmorphic card preview */}
-          <div className="absolute right-0 bottom-0 w-1/2 h-[70%] opacity-15 group-hover:opacity-25 transition-opacity duration-300 hidden sm:block">
+          <div className="absolute right-0 bottom-0 w-1/2 h-[70%] opacity-40 group-hover:opacity-80 transition-opacity duration-300 hidden sm:block">
             <div className="w-[120%] h-[120%] rounded-tl-xl border border-[#70a1ff]/20 bg-gradient-to-br from-[#13161b] to-[#050608] p-4 flex flex-col gap-2">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
@@ -60,10 +85,20 @@ export function Services() {
             <span>See Web Packages</span>
             <ArrowUpRight size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
           </button>
-        </div>
+        </motion.div>
 
         {/* Cell 2: SEO Optimization (Col-span 1) */}
-        <div className="rounded-2xl border border-white/5 bg-gradient-to-br from-[#13161b] to-[#0b0d11] p-8 flex flex-col justify-between group hover:border-[#70a1ff]/30 transition-colors duration-300 min-h-[320px]">
+        <motion.div variants={itemVariants} className="rounded-2xl border border-white/5 bg-gradient-to-br from-[#13161b] to-[#0b0d11] p-8 flex flex-col justify-between group hover:border-[#70a1ff]/30 transition-colors duration-300 min-h-[320px] relative overflow-hidden">
+          {/* Visual element: SEO Chart / Bars */}
+          <div className="absolute right-0 bottom-0 w-3/4 h-[60%] opacity-40 group-hover:opacity-80 transition-opacity duration-300 hidden sm:flex items-end justify-end p-4">
+            <div className="flex items-end gap-2 h-[80%] opacity-60">
+              <div className="w-5 h-[30%] bg-white/10 rounded-t-md" />
+              <div className="w-5 h-[50%] bg-white/10 rounded-t-md" />
+              <div className="w-5 h-[70%] bg-white/15 rounded-t-md" />
+              <div className="w-5 h-[100%] bg-[#70a1ff]/30 rounded-t-md border-t-2 border-[#70a1ff]/50" />
+            </div>
+          </div>
+
           <div className="relative z-10">
             <div className="w-10 h-10 rounded-lg bg-[#70a1ff]/10 border border-[#70a1ff]/20 flex items-center justify-center text-[#70a1ff] mb-6">
               <MapPinArea size={20} />
@@ -81,10 +116,10 @@ export function Services() {
             <span>View SEO ROI</span>
             <ArrowUpRight size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
           </button>
-        </div>
+        </motion.div>
 
         {/* Cell 3: AI Chatbots (Col-span 3 / Full Width) */}
-        <div className="md:col-span-3 rounded-2xl border border-white/5 bg-[#0b0d11] p-8 flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:border-[#70a1ff]/30 transition-colors duration-300">
+        <motion.div variants={itemVariants} className="md:col-span-3 rounded-2xl border border-white/5 bg-[#0b0d11] p-8 flex flex-col md:flex-row md:items-center justify-between gap-8 group hover:border-[#70a1ff]/30 transition-colors duration-300">
           <div className="max-w-xl">
             <div className="w-10 h-10 rounded-lg bg-[#70a1ff]/10 border border-[#70a1ff]/20 flex items-center justify-center text-[#70a1ff] mb-6">
               <ChatCircleText size={20} />
@@ -122,8 +157,8 @@ export function Services() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
